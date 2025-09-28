@@ -6,11 +6,13 @@
 
 class Screen
 {
+private:
     SDL_Event e;
     SDL_Window *window;
     SDL_Renderer *renderer;
     std::vector<SDL_FPoint> points;
 
+public:
     Screen()
     {
         SDL_Init(SDL_INIT_VIDEO);
@@ -19,6 +21,7 @@ class Screen
     }
 
     void pixel(float x, float y) { points.emplace_back(x, y); }
+    void clear() { points.clear(); }
 
     void show()
     {
@@ -31,5 +34,17 @@ class Screen
             SDL_RenderDrawPointF(renderer, point.x, point.y);
 
         SDL_RenderPresent(renderer);
+    }
+
+    void input()
+    {
+        while (SDL_PollEvent(&e))
+        {
+            if (e.type == SDL_QUIT)
+            {
+                SDL_Quit();
+                exit(0);
+            }
+        }
     }
 };

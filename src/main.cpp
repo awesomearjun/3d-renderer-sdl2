@@ -1,7 +1,19 @@
+#include <cstdlib>
 #include <iostream>
 #include "screen.hpp"
 
 int main()
 {
-	std::cout << "hi" << std::endl;
+	Screen screen;
+
+	for (int i = 0; i < 100; i++)
+	{
+		screen.pixel(rand() % 640, rand() % 480);	
+	}
+
+	while (true)
+	{
+		screen.show();
+		screen.input();
+	}
 }
